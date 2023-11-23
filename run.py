@@ -44,11 +44,44 @@ try:
     conn.commit() 
     """  
 
-
+    """
     delete_script = 'DELETE FROM students WHERE student_id =%s'  
     val= '5' 
     cur.execute(delete_script,val) 
-    conn.commit()
+    conn.commit() 
+    """
+    
+    val = ""
+    
+    while (val!=0):   
+        val = input("Enter 1 - for add user \n Enter 2 -to delete user\n Enter 3 to read DB\n Enter 4 to update email\n") 
+        if val == "1":  
+
+            #conn.commit()  
+            print("Thank youuuuuuuuuuuuuuuuuuuuuuu") 
+            enterUserData()
+        
+        elif val == "2":  
+            #conn.commit()  
+            print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
+
+        elif val == "3": 
+            #conn.commit()    
+            print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
+        
+        elif val == "4": 
+            #conn.commit()    
+            print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
+        
+        elif val == "5":  
+            print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
+            break 
+        else:  
+            print("try again")
+           
+        
+
+
     
 
 except Exception as error: 
@@ -60,4 +93,7 @@ finally:
     if conn is not None: 
         conn.close()
     cur.close() 
-    conn.close()
+    conn.close() 
+
+def enterUserData(): 
+    val = input("Enter user first name");
