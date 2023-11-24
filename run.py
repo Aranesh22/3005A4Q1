@@ -59,18 +59,35 @@ def main():
 
                 #conn.commit()  
                 print("Thank youuuuuuuuuuuuuuuuuuuuuuu") 
-                enterUserData()
+                userin = enterUserData() 
+
+                query = ' INSERT INTO students (first_name, last_name, email, enrollment_date) Values (%s,%s,%s,%s) '  
+                print(enterUserData)
+                cur.execute(query,userin) 
+                print("works")
+                conn.commit()
+           
             
-            elif val == "2":  
+            elif val == "2":   
+                deleteUser()
                 #conn.commit()  
                 print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
 
             elif val == "3": 
                 #conn.commit()    
-                print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
+                print("Thank youuuuuuuuuuuuuuuuuuuuuuu") 
+                """
+                cur.execute('SELECT * FROM STUDENTS') 
+                for x in cur.fetchall(): 
+                    print(x)   
+
+                conn.commit()    
+               """  
             
             elif val == "4": 
-                #conn.commit()    
+                #conn.commit()  
+                updateEmail()
+                
                 print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
             
             elif val == "5":  
@@ -95,6 +112,26 @@ def main():
         cur.close() 
         conn.close() 
 
+def deleteUser():   
+     userInput = ""    
+     valid = True; 
+     while (userInput!="exit"):    
+
+        id = 0 
+
+        while (valid!=False): 
+               userInput = input("Enter user ID") 
+
+               if (checkifNum(userInput) == True):  
+                   
+                   id = userInput
+                   userInput= "" 
+                   break
+               else:  
+                   print("Must be a number")  
+        
+        return id
+     
 
 def checkifNum(val): 
      for x in val: 
@@ -105,6 +142,45 @@ def checkifNum(val):
      return False
     
 
+def updateEmail():    
+     
+    userInput = ""   
+    id = 0 
+    email = ""
+    valid = True 
+    contentEmail = ""
+
+    while (userInput!="exit"):    
+
+        id = 0 
+
+        while (valid!=False): 
+               userInput = input("Enter user ID") 
+
+               if (checkifNum(userInput) == True):  
+                   
+                   id = userInput
+                   userInput= "" 
+                   break
+               else:  
+                   print("Must be a number") 
+        
+        while (valid!=False): 
+               userInput = input("Enter user email \n") 
+
+               if userInput.__contains__("@") and userInput[0] !="@": 
+                   email = userInput 
+                   contentEmail = (id,email) 
+                   userInput = "" 
+                   break
+               else:  
+                   print("Invalid Email")
+           
+        
+        return contentEmail
+     
+     
+     
 def enterUserData():    
     
 
@@ -166,7 +242,7 @@ def enterUserData():
                print(len(userInput))
 
                if  (checkifNum(userInput) == True)  and (len(userInput) ==4) and int(userInput) > 1799: 
-                   year = userInput 
+                   year = (userInput)  
                    userInput = ""  
                    break
 
@@ -177,7 +253,8 @@ def enterUserData():
                userInput = input("Enter month of enrollment\n") 
 
                if (checkifNum(userInput) == True) and (len(userInput) ==1 or len(userInput) ==2) and int(userInput )> 0: 
-                   month = userInput 
+                   month = userInput  
+                   str(month)
                    userInput = "" 
                    break
                else:  
@@ -187,13 +264,18 @@ def enterUserData():
                userInput = input("Enter day of enrollment\n") 
 
                if (checkifNum(userInput) == True) and (len(userInput) ==1 or len(userInput) ==2) and 0 < int(userInput) < 32: 
-                   day = userInput  
-                   userInfo = (first_name,last_name,email,day,month,year) 
+                   day = userInput    
+                   date = year+"-"+month+"-"+day
+                   userInfo = (first_name,last_name,email,date) 
                    print(userInfo)
                    userInput = "exit" 
                    break
                else:  
                    print("Invalid input try again")  
+
+        return userInfo 
+         
+     
 
 
 
