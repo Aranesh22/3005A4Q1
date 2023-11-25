@@ -1,21 +1,20 @@
 SQL QUERIES INFORMATION 
 ~~~~~~~~~~~~~~~~~~~~~~~ 
-the sql queries are in this foilder 
+the sql queries are in this folder 
 
-teh folder path is.... 
+the folder path is.... 
 sql_direc/SQL_INFO.txt 
 
 
 RUN PROGRAM 
 ~~~~~~~~~~~ 
 
+-download the zip folder from github 
+-then unzip it in the correct directory  
+-open the code at any of your particular development platform  
+-then copy past the queries into query tool for the database
+-before you run anything in the command prompt make sure connection dependencies instances in the code match your SQL database instances that I put in the comments above   
+- once project is un zipped run open the command prompt to the directory of the project and run this command 
+pip3 install psycopg2 
+-then run the code and enjoy interacting with the CRUD application! 
 
-
-
-
-
-
-FUNCTIONS 
-~~~~~~~~~ 
-
-main()
