@@ -282,8 +282,3 @@ def enterUserData():
         return userInfo 
              
 main()
-
-                   
-              
-   
-
