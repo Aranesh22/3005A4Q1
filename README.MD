@@ -20,7 +20,7 @@ RUN PROGRAM
 -before you run anything in the command prompt make sure connection dependencies instances in the code match your SQL database instances that I put in the comments above   
 - once project is un zipped run open the command prompt to the directory of the project and run this command 
 pip3 install psycopg2 
--then run the code and enjoy interacting with the CRUD application! 
+-then run the file run.py and enjoy interacting with the CRUD application! 
 
 Functions  
 ~~~~~~~~~ 
