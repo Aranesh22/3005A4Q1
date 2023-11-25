@@ -1,5 +1,6 @@
 import psycopg2 
 
+#connection dependenices needed to make the connection
 hostname = 'localhost' 
 database = 'student' 
 username = 'postgres' 
@@ -8,12 +9,14 @@ port_id = 5433
 conn = None 
 cur = None 
 
-""" 
+'''
+This is the main function responsible for making the connection with the database
+it also runs as the function that communicated with the database and in charge of the user experience 
+A while loop is used to cycle through the interface for the user choices and make commands to sql databse and update the DB
+'''
+def main(): 
 
-
-
-"""
-def main():
+    #try statment is used to make the connection 
     try:
         conn = psycopg2.connect ( 
 
@@ -23,15 +26,16 @@ def main():
             password = pwd, 
             port = port_id) 
 
+        #This statment allows us to connect towards SQL in order to execute those commands
         cur = conn.cursor()
 
         val = ""
         
+        #Using this while loop to cycle through the interface 
         while (val!=5):   
             val = input("\nEnter 1 - for add user \nEnter 2 -to delete user\nEnter 3 to read DB\nEnter 4 to update email\nEnter 5 to exit\n") 
             if val == "1":  
 
-                #conn.commit()  
                 userin = enterUserData() 
 
                 query = ' INSERT INTO students (first_name, last_name, email, enrollment_date) Values (%s,%s,%s,%s) '  
@@ -89,13 +93,6 @@ def main():
                             break       
                         else: 
                             print("EMAIL IS ALREADY IN DATABASE PLEASE TRY AGAIN!") 
-
-                       
-                    
-                
-                    
-                    
-                    
             
             elif val == "5":  
                 break 
@@ -103,15 +100,20 @@ def main():
                 print("try again")
 
     except Exception as error: 
-        print(error) 
+        print(error)  
+    #Finally is used to close the connection
     finally:  
-
         if cur is not None:
             cur.close() 
         if conn is not None: 
             conn.close()
         cur.close() 
         conn.close() 
+
+''' 
+This function is used for receving 
+the deletuser input is then checked if they are valid inputs   
+''' 
 
 def deleteUser():   
      userInput = ""    
@@ -135,6 +137,9 @@ def deleteUser():
         return id
      
 
+''' 
+This function checks if the a string contains a number 
+'''
 def checkifNum(val): 
      for x in val: 
           if x.isdigit(): 
@@ -142,8 +147,11 @@ def checkifNum(val):
           
           
      return False
-    
 
+''' 
+This function is like the other functions where it recieves the userinput 
+and checks if its valid based on the premises 
+'''
 def updateEmail():    
      
     userInput = ""   
@@ -180,8 +188,9 @@ def updateEmail():
         
         return contentEmail
      
-     
-     
+''' 
+This function takes in all the user data for add user as well as doing error checking and sending the data back to the main function 
+'''     
 def enterUserData():    
     
 
@@ -213,7 +222,6 @@ def enterUserData():
                    userInput = "" 
 
                    break 
-        #valid = True  
 
         while (valid!=False): 
                userInput = input("Enter user last name \n") 
