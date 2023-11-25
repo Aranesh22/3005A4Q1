@@ -1,3 +1,7 @@
+Aranesh Athavan 
+101152794
+
+
 SQL QUERIES INFORMATION 
 ~~~~~~~~~~~~~~~~~~~~~~~ 
 the sql queries are in this folder 
@@ -18,3 +22,23 @@ RUN PROGRAM
 pip3 install psycopg2 
 -then run the code and enjoy interacting with the CRUD application! 
 
+Functions  
+~~~~~~~~~ 
+main() 
+-this function is reponisble for running the operations of the program and connecting with the database  
+-it controls the user input and helps output the data to the user  
+
+deleteUser() 
+-this input deletes the user by first getting the ID
+
+checkifnum() 
+-checks if a string contains a number
+
+updateEmail() 
+-function responsible for entering user data to updateMail and sending back to the main function
+
+enterUserData()
+-function responsible for entering user data to add user and sending back to the main function
+
+Youtube Video
+https://youtu.be/aT4xY5V5MLAhttps://youtu.be/aT4xY5V5MLA

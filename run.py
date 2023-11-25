@@ -58,9 +58,7 @@ def main():
                    
                 conn.commit() 
                
-            
-            elif val == "4": 
-               
+            elif val == "4":
 
                 valid = True
                 while (valid!=False):    
@@ -192,15 +190,12 @@ def updateEmail():
 This function takes in all the user data for add user as well as doing error checking and sending the data back to the main function 
 '''     
 def enterUserData():    
-    
 
     userInput = "" 
     valid = True  
 
     userInfo = "" 
     
-
-
     while (userInput!="exit"):    
 
         first_name= ""
@@ -214,7 +209,6 @@ def enterUserData():
                userInput = input("Enter user first name \n") 
 
                if (checkifNum(userInput) == True):  
-                   print("dsa")
                    print("Name cant contain numbers!")  
                    userInput= ""
                else:  
@@ -273,7 +267,6 @@ def enterUserData():
                    day = userInput    
                    date = year+"-"+month+"-"+day
                    userInfo = (first_name,last_name,email,date) 
-                   print(userInfo)
                    userInput = "exit" 
                    break
                else:  
