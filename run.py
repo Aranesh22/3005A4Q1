@@ -6,7 +6,13 @@ username = 'postgres'
 pwd = 'Vignesh8*' 
 port_id = 5433  
 conn = None 
-cur = None   
+cur = None 
+
+""" 
+
+
+
+"""
 def main():
     try:
         conn = psycopg2.connect ( 
@@ -19,110 +25,82 @@ def main():
 
         cur = conn.cursor()
 
-        """
-        script = ''' INSERT INTO students (first_name, last_name, email, enrollment_date) Values (%s,%s,%s,%s)
-                    
-        '''   
-        
-        insertVal = ('aran','van','rat@jack.com','2023-09-20')
-        cur.execute(script,insertVal)
-        conn.commit()   
-        """
-
-        """
-        cur.execute('SELECT * FROM STUDENTS') 
-        for x in cur.fetchall(): 
-            print(x)   
-
-        conn.commit()    
-        """  
-        
-        """
-        update_script = 'UPDATE students SET email =%s WHERE student_id = %s' 
-        val = ('a.aranesh@gmail.com',5) 
-        cur.execute(update_script,val) 
-        conn.commit() 
-        """  
-
-        """
-        delete_script = 'DELETE FROM students WHERE student_id =%s'  
-        val= '5' 
-        cur.execute(delete_script,val) 
-        conn.commit() 
-        """
-        
         val = ""
         
         while (val!=5):   
-            val = input("Enter 1 - for add user \n Enter 2 -to delete user\n Enter 3 to read DB\n Enter 4 to update email\n") 
+            val = input("\nEnter 1 - for add user \nEnter 2 -to delete user\nEnter 3 to read DB\nEnter 4 to update email\nEnter 5 to exit\n") 
             if val == "1":  
 
                 #conn.commit()  
-                print("Thank youuuuuuuuuuuuuuuuuuuuuuu") 
                 userin = enterUserData() 
 
                 query = ' INSERT INTO students (first_name, last_name, email, enrollment_date) Values (%s,%s,%s,%s) '  
                 cur.execute(query,userin) 
-                print("works")
-                conn.commit()
-           
-            
+                conn.commit() 
+                print("User added \n")
+
             elif val == "2":   
                 delete_script = 'DELETE FROM students WHERE student_id =%s' 
                 userDelId = deleteUser()  
                 cur.execute(delete_script,userDelId) 
-                conn.commit() 
-                print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
+                conn.commit()  
+                print("User Deleted\n")
 
             elif val == "3": 
-                print("Thank youuuuuuuuuuuuuuuuuuuuuuu") 
               
-                cur.execute('SELECT * FROM STUDENTS') 
+                cur.execute('SELECT * FROM STUDENTS ORDER By Student_id ASC')  
                 for x in cur.fetchall(): 
-                    print(x)   
-
-                conn.commit()    
+                    print(x)  
+                   
+                conn.commit() 
                
             
             elif val == "4": 
-                #conn.commit()  
-                #updateEmail()  
-                
+               
 
                 valid = True
-                while (valid!=False):  
+                while (valid!=False):    
+                    contentE = updateEmail() 
+                    test = 'SELECT student_id FROM students WHERE student_id= %s'  
+                    inP = contentE[0] 
+                    print(str(inP))
+                    cur.execute(test,str(inP))  
+                    lent = len(cur.fetchall())   
+                    conn.commit()  
+                   
+                    print(lent)
 
-                    contentE = updateEmail()  
-                    print(contentE[1])  
-                    val = contentE[1]  
-                    test = "SELECT email FROM students WHERE email =%s"
+                    if (int(lent) == 0):  
+                         print("ID DOEST NOT EXIST TRY AGAIN")      
+                    else:  
 
-                    cur.execute(test,(val,))  
-                    conn.commit()   
+                        val = contentE[1]  
+                        test = "SELECT email FROM students WHERE email =%s" 
 
-                    print("BIG MON")  
+                        cur.execute(test,(val,))  
+                        conn.commit()   
 
-                    if not cur.fetchall():  
-                        print("pass") 
-                        update_script = 'UPDATE students SET email =%s WHERE student_id = %s'   
-                        userin = (contentE[1],contentE[0])
-                        cur.execute(update_script,userin) 
-                        conn.commit()  
-                        break  
+                        if not cur.fetchall():  
+                            update_script = 'UPDATE students SET email =%s WHERE student_id = %s'   
+                            userin = (contentE[1],contentE[0])
+                            cur.execute(update_script,userin) 
+                            conn.commit() 
+                            print("\nUSER UPDATED!\n")
+                            break       
+                        else: 
+                            print("EMAIL IS ALREADY IN DATABASE PLEASE TRY AGAIN!") 
+
+                       
                     
-                    print("EMAIL IS ALREADY IN DATABASE PLEASE TRY AGAIN!")
+                
+                    
+                    
                     
             
             elif val == "5":  
-                print("Thank youuuuuuuuuuuuuuuuuuuuuuu")
                 break 
             else:  
                 print("try again")
-            
-            
-
-
-        
 
     except Exception as error: 
         print(error) 
@@ -143,22 +121,17 @@ def deleteUser():
 
      while (userInput!="exit"):    
 
-        
-
         while (valid!=False): 
                userInput = input("Enter user ID \n") 
 
                if (checkifNum(userInput) == True):  
                    
                    id = userInput 
-                   print("upppp")
                    userInput= ""  
                    break
                else:  
                    print("Must be a number")  
         
-        print("noooo")
-
         return id
      
 
@@ -182,10 +155,8 @@ def updateEmail():
 
     while (userInput!="exit"):    
 
-        
-
         while (valid!=False): 
-               userInput = input("Enter user ID") 
+               userInput = input("Enter user ID \n") 
 
                if (checkifNum(userInput) == True):  
                    
@@ -230,9 +201,6 @@ def enterUserData():
         month = 0
         day = 0
         
-    
-
- 
         while (valid!=False): 
                userInput = input("Enter user first name \n") 
 
@@ -282,7 +250,7 @@ def enterUserData():
         while (valid!=False): 
                userInput = input("Enter month of enrollment\n") 
 
-               if (checkifNum(userInput) == True) and (len(userInput) ==1 or len(userInput) ==2) and int(userInput )> 0: 
+               if (checkifNum(userInput) == True) and (len(userInput) ==1 or len(userInput) ==2) and 0 < int(userInput ) < 13: 
                    month = userInput  
                    str(month)
                    userInput = "" 
@@ -304,12 +272,6 @@ def enterUserData():
                    print("Invalid input try again")  
 
         return userInfo 
-         
-     
-
-
-
-             
              
 main()
 
